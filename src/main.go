@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/gempir/go-twitch-irc/v3"
 	"github.com/joho/godotenv"
@@ -25,7 +26,9 @@ func main() {
 		}
 	})
 
-	client.Join(os.Getenv("TWITCH_CHANNEL"))
+	channels := strings.Split(os.Getenv("TWITCH_CHANNELS"), ",")
+
+	client.Join(channels...)
 	// client.Say("mmattbtw", "TriHard hello from go")
 
 	err := client.Connect()
